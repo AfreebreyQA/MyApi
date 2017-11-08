@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use("/", router);
 
 // Get all albums
-router.get("/api/album", (req, res) => {
+router.get("/api/albums", (req, res) => {
     res.json(albums);
 });
 
@@ -37,7 +37,7 @@ router.get("/api/album/:id", (req, res) =>{
 });
 
 // Post Request
-router.post("/api/albums/", (req, res) => {
+router.post("/api/album/", (req, res) => {
     const postAlbum = req.body;
     const isValid = isValidAlbum(postAlbum) && !albums.find((a) => a.id == postAlbum.id);
     if (isValid) {
@@ -139,5 +139,5 @@ function isValidAlbum(_album){
 // Run Server
 app.listen(port, (err) => {
     if (err) { console.log(err); }
-    else { open(`http://localhost:${port}/api/album/`);}
+    else { open(`http://localhost:${port}/api/albums/`);}
 });
