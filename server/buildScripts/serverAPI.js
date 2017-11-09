@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use("/", router);
 
 // Get all albums
-router.get("/api/albums", (req, res) => {
+router.get("/api/album", (req, res) => {
     res.json(albums);
 });
 
@@ -59,9 +59,11 @@ router.put("/api/album/:id", (req, res) => {
         const putAlbum = req.body;
         const isValid = isValidAlbum(putAlbum);
         if (isValid) {
+            currentAlbum.id = putAlbum.id;
             currentAlbum.title = putAlbum.title;
-            //currentAlbum.releaseDate = putAlbum.releaseDate;
-            //currentAlbum.artist = putAlbum.artist;
+            currentAlbum.artist = putAlbum.artist;
+            currentAlbum.releaseDate = putAlbum.releaseDate;
+            currentAlbum.songs = putAlbum.songs;
             res.sendStatus(204);
         } else {
             res.sendStatus(404);
@@ -116,7 +118,6 @@ const albums = [
         songs: [
             "Busted",
             "Do the Rump",
-            "Indy Kidz",
             "I'll Be Your Man",
             "Countdown",
             "The Breaks",
@@ -139,5 +140,5 @@ function isValidAlbum(_album){
 // Run Server
 app.listen(port, (err) => {
     if (err) { console.log(err); }
-    else { open(`http://localhost:${port}/api/albums/`);}
+    else { open(`http://localhost:${port}/api/album/`);}
 });
